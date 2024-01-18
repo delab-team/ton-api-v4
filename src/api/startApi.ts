@@ -35,7 +35,11 @@ export async function startApi(client: LiteClient, child: { clients: LiteClient[
     app.register(require('@fastify/websocket'));
     app.register(require('@fastify/cors'), {
         origin: (origin: string | undefined, cb: (err: Error | null, allow: boolean) => void) => {
-            const allowedOrigins = [/.*\.delabteam\.com$/, /http:\/\/localhost(:\d+)?$/];
+            const allowedOrigins = [
+                /.*\.delabteam\.com$/,
+                /http:\/\/localhost(:\d+)?$/,
+                /http:\/\/127\.0\.0\.1(:\d+)?$/
+            ];
             if (!origin || allowedOrigins.some(regex => regex.test(origin))) {
                 cb(null, true);
             } else {
