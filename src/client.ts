@@ -1,13 +1,14 @@
-/**
- * Copyright (c) Whales Corp. 
- * All Rights Reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
+import * as dotenv from 'dotenv';
 
 import { LiteClient, LiteRoundRobinEngine, LiteSingleEngine } from 'ton-lite-client';
 import { fetchConfig } from './utils/fetchConfig';
+
+dotenv.config();
+if (process.env.NODE_ENV === 'development') {
+    dotenv.config({path: '.env.development'});
+} else {
+    dotenv.config({path: '.env.production'});
+}
 
 export async function createClient() {
 
