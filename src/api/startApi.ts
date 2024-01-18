@@ -38,7 +38,9 @@ export async function startApi(client: LiteClient, child: { clients: LiteClient[
             const allowedOrigins = [
                 /.*\.delabteam\.com$/,
                 /http:\/\/localhost(:\d+)?$/,
-                /http:\/\/127\.0\.0\.1(:\d+)?$/
+                /http:\/\/127\.0\.0\.1(:\d+)?$/,
+                /https:\/\/localhost(:\d+)?$/,
+                /https:\/\/127\.0\.0\.1(:\d+)?$/
             ];
             if (!origin || allowedOrigins.some(regex => regex.test(origin))) {
                 cb(null, true);
