@@ -37,6 +37,8 @@ export async function startApi(client: LiteClient, child: { clients: LiteClient[
         origin: (origin: string | undefined, cb: (err: Error | null, allow: boolean) => void) => {
             const allowedOrigins = [
                 /.*\.delabteam\.com$/,
+                /https:\/\/v2\.delabwallet\.com/,
+                /v2\.delabwallet\.com$/,
                 /http:\/\/localhost(:\d+)?$/,
                 /http:\/\/127\.0\.0\.1(:\d+)?$/,
                 /https:\/\/localhost(:\d+)?$/,
