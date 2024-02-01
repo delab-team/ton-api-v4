@@ -33,26 +33,26 @@ export async function startApi(client: LiteClient, child: { clients: LiteClient[
         maxParamLength: 500,
     });
     app.register(require('@fastify/websocket'));
-    app.register(require('@fastify/cors'), {
-        origin: (origin: string | undefined, cb: (err: Error | null, allow: boolean) => void) => {
-            const allowedOrigins = [
-                /.*\.delabteam\.com$/,
-                /.*\.delabwallet\.com$/,
-                /https:\/\/v2\.delabwallet\.com/,
-                /http:\/\/localhost(:\d+)?$/,
-                /http:\/\/127\.0\.0\.1(:\d+)?$/,
-                /https:\/\/localhost(:\d+)?$/,
-                /https:\/\/127\.0\.0\.1(:\d+)?$/
-            ];
-            if (!origin || allowedOrigins.some(regex => regex.test(origin))) {
-                cb(null, true);
-            } else {
-                cb(new Error("Not allowed by CORS"), false);
-            }
-        },
-        allowedHeaders: '*',
-        methods: ['GET']
-    });
+    // app.register(require('@fastify/cors'), {
+    //     origin: (origin: string | undefined, cb: (err: Error | null, allow: boolean) => void) => {
+    //         const allowedOrigins = [
+    //             /.*\.delabteam\.com$/,
+    //             /.*\.delabwallet\.com$/,
+    //             /https:\/\/v2\.delabwallet\.com/,
+    //             /http:\/\/localhost(:\d+)?$/,
+    //             /http:\/\/127\.0\.0\.1(:\d+)?$/,
+    //             /https:\/\/localhost(:\d+)?$/,
+    //             /https:\/\/127\.0\.0\.1(:\d+)?$/
+    //         ];
+    //         if (!origin || allowedOrigins.some(regex => regex.test(origin))) {
+    //             cb(null, true);
+    //         } else {
+    //             cb(new Error("Not allowed by CORS"), false);
+    //         }
+    //     },
+    //     allowedHeaders: '*',
+    //     methods: ['GET']
+    // });
     app.get('/', (req, res) => {
         res.send('Welcome to TON API v4!');
     });
