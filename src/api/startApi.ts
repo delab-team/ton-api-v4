@@ -1,5 +1,5 @@
 /**
- * Copyright (c) Whales Corp. 
+ * Copyright (c) Whales Corp.
  * All Rights Reserved.
  *
  * This source code is licensed under the MIT license found in the
@@ -7,28 +7,28 @@
  */
 
 import fastify from 'fastify';
-import { LiteClient } from 'ton-lite-client';
-import { BlockSync } from '../sync/BlockSync';
-import { log } from '../utils/log';
-import { handleAccountGet } from './handlers/handleAccountGet';
-import { handleAccountGetChanged } from './handlers/handleAccountGetChanged';
-import { handleAccountGetLite } from './handlers/handleAccountGetLite';
-import { handleAccountRun } from './handlers/handleAccountRun';
-import { handleBlockWatch } from './handlers/handleBlockWatch';
-import { handleBlockWatchChanged } from './handlers/handleBlockWatchChanged';
-import { handleGetBlock } from './handlers/handleGetBlock';
-import { handleGetBlockByUtime } from './handlers/handleGetBlockByTime';
-import { handleGetBlockLatest } from './handlers/handleGetBlockLatest';
-import { handleGetConfig } from './handlers/handleGetConfig';
-import { handleGetTransactions } from './handlers/handleGetTransactions';
-import { handleSend } from './handlers/handleSend';
-import { handleGetParsedTransactions } from './handlers/handleGetParsedTransactions';
+import {LiteClient} from 'ton-lite-client';
+import {BlockSync} from '../sync/BlockSync';
+import {log} from '../utils/log';
+import {handleAccountGet} from './handlers/handleAccountGet';
+import {handleAccountGetChanged} from './handlers/handleAccountGetChanged';
+import {handleAccountGetLite} from './handlers/handleAccountGetLite';
+import {handleAccountRun} from './handlers/handleAccountRun';
+import {handleBlockWatch} from './handlers/handleBlockWatch';
+import {handleBlockWatchChanged} from './handlers/handleBlockWatchChanged';
+import {handleGetBlock} from './handlers/handleGetBlock';
+import {handleGetBlockByUtime} from './handlers/handleGetBlockByTime';
+import {handleGetBlockLatest} from './handlers/handleGetBlockLatest';
+import {handleGetConfig} from './handlers/handleGetConfig';
+import {handleGetTransactions} from './handlers/handleGetTransactions';
+import {handleSend} from './handlers/handleSend';
+import {handleGetParsedTransactions} from './handlers/handleGetParsedTransactions';
 
 export async function startApi(client: LiteClient, child: { clients: LiteClient[] }[], blockSync: BlockSync) {
 
     // Configure
     log('Starting API...');
-    const app = fastify({ 
+    const app = fastify({
         logger: process.env.LOG_ENABLE === 'true',
         maxParamLength: 500,
     });
@@ -53,13 +53,19 @@ export async function startApi(client: LiteClient, child: { clients: LiteClient[
     //     allowedHeaders: '*',
     //     methods: ['GET']
     // });
+    app.register(require('@fastify/cors'), {
+        origin: '*',  // Разрешаем все домены
+        allowedHeaders: '*',  // Разрешаем все заголовки
+        methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS']  // Разрешаем все методы
+    });
+
     app.get('/', (req, res) => {
         res.send('Welcome to TON API v4!');
     });
 
     // Handlers
-    app.get('/block/watch', { websocket: true } as any, handleBlockWatch(client, blockSync));
-    app.get('/block/watch/changed', { websocket: true } as any, handleBlockWatchChanged(client, blockSync));
+    app.get('/block/watch', {websocket: true} as any, handleBlockWatch(client, blockSync));
+    app.get('/block/watch/changed', {websocket: true} as any, handleBlockWatchChanged(client, blockSync));
     app.get('/block/latest', handleGetBlockLatest(client, blockSync));
     app.get('/block/utime/:utime', handleGetBlockByUtime(client));
     app.get('/block/:seqno', handleGetBlock(client));
@@ -79,7 +85,7 @@ export async function startApi(client: LiteClient, child: { clients: LiteClient[
             body: {
                 type: 'object',
                 properties: {
-                    boc: { type: 'string' }
+                    boc: {type: 'string'}
                 },
                 required: ['boc']
             }
