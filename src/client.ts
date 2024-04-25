@@ -1,7 +1,5 @@
 import * as dotenv from 'dotenv';
-
 import {LiteClient, LiteRoundRobinEngine, LiteSingleEngine} from 'ton-lite-client';
-import * as fs from "fs";
 
 dotenv.config();
 if (process.env.NODE_ENV === 'development') {

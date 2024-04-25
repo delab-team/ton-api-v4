@@ -53,11 +53,11 @@ export async function startApi(client: LiteClient, child: { clients: LiteClient[
     //     allowedHeaders: '*',
     //     methods: ['GET']
     // });
-    app.register(require('@fastify/cors'), {
-        origin: '*',  // Разрешаем все домены
-        allowedHeaders: '*',  // Разрешаем все заголовки
-        methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS']  // Разрешаем все методы
-    });
+    // app.register(require('@fastify/cors'), {
+    //     origin: '*',  // Разрешаем все домены
+    //     allowedHeaders: '*',  // Разрешаем все заголовки
+    //     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS']  // Разрешаем все методы
+    // });
 
     app.get('/', (req, res) => {
         res.send('Welcome to TON API v4!');
