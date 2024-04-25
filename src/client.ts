@@ -46,7 +46,7 @@ export async function createClient() {
             const keyBuffer = Buffer.from(keyBase64, 'base64');
 
             // Create a LiteSingleEngine for each client, passing the key as a Buffer
-            let engine = new LiteSingleEngine({host: `http://${intToIP(Number(ip))}:${8088}`, publicKey: keyBuffer});
+            let engine = new LiteSingleEngine({host: `http://${intToIP(Number(ip))}:${port}`, publicKey: keyBuffer});
             clients.push(new LiteClient({engine, batchSize: 10}));
             commonClientEngines.push(engine);
         }
