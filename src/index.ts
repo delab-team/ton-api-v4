@@ -1,5 +1,5 @@
 /**
- * Copyright (c) Whales Corp.
+ * Copyright (c) Whales Corp. 
  * All Rights Reserved.
  *
  * This source code is licensed under the MIT license found in the
@@ -8,10 +8,10 @@
 
 require('dotenv').config();
 
-import {startApi} from "./api/startApi";
-import {createClient} from "./client";
-import {BlockSync} from "./sync/BlockSync";
-import {log} from "./utils/log";
+import { startApi } from "./api/startApi";
+import { createClient } from "./client";
+import { BlockSync } from "./sync/BlockSync";
+import { log } from "./utils/log";
 
 (async () => {
 
@@ -30,6 +30,7 @@ import {log} from "./utils/log";
     //
 
     log('Downloading current state....');
+
     let mc = await client.main.getMasterchainInfoExt().catch(e => {
         console.error('getMasterchainInfoExt', e);
     });
